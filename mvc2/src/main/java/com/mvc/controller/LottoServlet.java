@@ -29,7 +29,7 @@ public class LottoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String uri = request.getRequestURI();
-		int idx = uri.indexOf("/");
+		int idx = uri.lastIndexOf("/");
 		uri = uri.substring(idx + 1);
 		String path = "/WEB-INF/views/";
 		if ("lotto".equals(uri)) {

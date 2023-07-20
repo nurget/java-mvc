@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-계산 결과 : <%=request.getParameter("result") %>
+계산 결과 : <%=request.getAttribute("result") %>
 </body>
 </html>

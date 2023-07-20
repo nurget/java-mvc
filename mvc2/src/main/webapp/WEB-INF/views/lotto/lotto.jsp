@@ -17,6 +17,5 @@
 	<input type="text" name="num">
 	<button>맞추기</button>
 </form>
-
 </body>
 </html>
