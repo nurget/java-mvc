@@ -12,6 +12,7 @@
     <servlet-name>ciServlet</servlet-name>
     <url-pattern>/class-info/*</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <servlet-name>calc</servlet-name>
     <servlet-class>com.mvc.controller.CalcServlet</servlet-class>
@@ -20,6 +21,7 @@
     <servlet-name>calc</servlet-name>
     <url-pattern>/calc/*</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <servlet-name>lotto</servlet-name>
     <servlet-class>com.mvc.controller.LottoServlet</servlet-class>
@@ -28,6 +30,7 @@
     <servlet-name>lotto</servlet-name>
     <url-pattern>/lotto/*</url-pattern>
   </servlet-mapping>
+  
   <servlet>
   	<servlet-name>find</servlet-name>
   	<servlet-class>com.mvc.controller.FindServlet</servlet-class>
@@ -35,5 +38,23 @@
   <servlet-mapping>
   	<servlet-name>find</servlet-name>
   	<url-pattern>/find/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>user-info</servlet-name>
+  	<servlet-class>com.mvc.controller.UserInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>user-info</servlet-name>
+  	<url-pattern>/user-info/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>test-info</servlet-name>
+  	<servlet-class>com.mvc.controller.TestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>test-info</servlet-name>
+  	<url-pattern>/test-info/*</url-pattern>
   </servlet-mapping>
 </web-app>
