@@ -18,13 +18,13 @@ public class ClassInfoServlet extends HttpServlet {
 	private ClassInfoRepository ciRepo = new ClassInfoRepository();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url = request.getRequestURI();
+		String uri = request.getRequestURI();
 		String path = "";
-		if("/class-info/list".equals(url)) {
+		if("/class-info/list".equals(uri)) {
 			List<Map<String, String>> classInfoList = ciRepo.selectClassInfoList();
 			request.setAttribute("classInfoList", classInfoList);
 			path = "/WEB-INF/views/class-info/class-info-list.jsp";
-		} else if ("/class-info/list".equals(url)) {
+		} else if ("/class-info/view".equals(uri)) {
 			List<Map<String, String>> classInfoList = ciRepo.selectClassInfoList();
 			request.setAttribute("classInfoList", classInfoList);
 			path = "/WEB-INF/views/class-info/class-info-view.jsp";

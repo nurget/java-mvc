@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-맞춘 개수 : <%=request.getAttribute("message") %>
+<h3>번호 찾기</h3>
+<form action="/find/check">
+	<input type="text" name="num">
+	<button>찾기</button>
+</form>
 </body>
 </html>

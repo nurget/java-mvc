@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-맞춘 개수 : <%=request.getAttribute("message") %>
+<h3>결과</h3>
+<%=request.getAttribute("message") %>
 </body>
 </html>

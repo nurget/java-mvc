@@ -28,4 +28,12 @@
     <servlet-name>lotto</servlet-name>
     <url-pattern>/lotto/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>find</servlet-name>
+  	<servlet-class>com.mvc.controller.FindServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>find</servlet-name>
+  	<url-pattern>/find/*</url-pattern>
+  </servlet-mapping>
 </web-app>
