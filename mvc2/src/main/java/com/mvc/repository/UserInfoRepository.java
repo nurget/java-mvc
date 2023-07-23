@@ -29,7 +29,7 @@ public class UserInfoRepository {
 
 			String sql = "SELECT * FROM USER_INFO WHERE 1=1";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ResultSet  rs = ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Map<String,String> userInfo = new HashMap<>();
 				userInfo.put("uiNum", rs.getString("UI_NUM"));
@@ -61,7 +61,7 @@ public class UserInfoRepository {
 
 			String sql = "SELECT * FROM USER_INFO WHERE 1=1 AND UI_NUM=?";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1,uiNum);
+			ps.setString(1, uiNum);
 			ResultSet  rs = ps.executeQuery();
 			while(rs.next()) {
 				Map<String,String> userInfo = new HashMap<>();
