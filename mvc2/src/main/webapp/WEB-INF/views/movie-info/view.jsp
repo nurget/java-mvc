@@ -9,6 +9,8 @@
 </head>
 <body>
 <h3>영화 상세화면</h3>
+<form action="/movie-info/delete" method="POST">
+	<input type="hidden" name="miNum" value="${movieInfo.miNum}">
 <table border="1">
 	<tr>
 		<th>번호</th>
@@ -34,6 +36,13 @@
 		<th>관객수</th>
 		<td>${movieInfo.miCnt}</td>
 	</tr>
+	<tr>
+		<th colspan="2">
+			<button onclick="location.href='/movie-info/update?miNum=${movieInfo.miNum}'">수정</button>
+			<button>삭제</button>
+		</th>
+	</tr>
 </table>
+</form>
 </body>
 </html>

@@ -96,6 +96,19 @@ public class UserInfoRepository {
 		}
 		return 0;
 	}
+	
+	public int deleteUserInfo(String uiNum) {
+		String sql = "DELETE FROM USER_INFO WHERE UI_NUM=?";
+		Connection con = DBCon.getCon();
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, uiNum);
+			return ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }
 
 

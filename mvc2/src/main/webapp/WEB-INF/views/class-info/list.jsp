@@ -15,7 +15,6 @@
 		<th>번호</th>
 		<th>이름</th>
 		<th>내용</th>
-
 	</tr>
 	<c:forEach items="${classInfoList}" var="classInfo">
 		<tr>

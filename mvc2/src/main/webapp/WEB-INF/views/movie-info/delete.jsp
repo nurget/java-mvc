@@ -7,9 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div>
-${msg}<br>
-<button onclick="location.href='${url}'">확인</button>
-</div>
+
 </body>
 </html>

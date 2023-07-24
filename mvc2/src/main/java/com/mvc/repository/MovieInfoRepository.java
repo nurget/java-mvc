@@ -81,4 +81,39 @@ public class MovieInfoRepository {
 		}
 		return 0;
 	}
+	
+	public int updateMovieInfo(Map<String,String> movieInfo) {
+		String sql = "UPDATE MOVIE_INFO";
+		sql += " SET MI_TITLE=?,";
+		sql += " MI_DESC=?,";
+		sql += " MI_GENRE=?,";
+		sql += " MI_CREDAT=?,";
+		sql += " MI_CNT=?";
+		Connection con = DBCon.getCon();
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, movieInfo.get("miTitle"));
+			ps.setString(2, movieInfo.get("miDesc"));
+			ps.setString(3, movieInfo.get("miGenre"));
+			ps.setString(4, movieInfo.get("miCredat"));
+			ps.setString(5, movieInfo.get("miCnt"));
+			return ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int deleteMovieInfo(String miNum) {
+		String sql = "DELETE FROM MOVIE_INFO WHERE MI_NUM=?";
+		Connection con = DBCon.getCon();
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, miNum);
+			return ps.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }

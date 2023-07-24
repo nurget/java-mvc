@@ -66,7 +66,22 @@ public class UserInfoServlet extends HttpServlet {
 			param.put("uiPwd", request.getParameter("uiPwd"));
 			param.put("uiName", request.getParameter("uiName"));
 			param.put("uiNum", request.getParameter("uiNum"));
-			
+			int result = uiRepo.updateUserInfo(param);
+			request.setAttribute("msg", "회원수정이 실패하였습니다.");
+			request.setAttribute("url", "/user-info/update?uiNum=" + request.getParameter("uiNum"));
+			if(result==1) {
+				request.setAttribute("msg", "회원수정이 성공하였습니다.");
+				request.setAttribute("url", "/user-info/list");
+			}
+		}else if("delete".equals(uri)) {
+			String uiNum = request.getParameter("uiNum");
+			int result = uiRepo.deleteUserInfo(uiNum);
+			request.setAttribute("msg", "회원삭제가 실패하였습니다.");
+			request.setAttribute("url", "/user-info/view?uiNum=" + request.getParameter("uiNum"));
+			if(result==1) {
+				request.setAttribute("msg", "회원삭제가 성공하였습니다.");
+				request.setAttribute("url", "/user-info/list");
+			}
 		}
 		RequestDispatcher rd = request.getRequestDispatcher(path);
 		rd.forward(request, response);

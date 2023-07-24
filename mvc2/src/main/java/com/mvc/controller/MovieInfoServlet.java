@@ -30,12 +30,17 @@ public class MovieInfoServlet extends HttpServlet {
 		} else if ("view".equals(uri)) {
 			path += "movie-info/view.jsp";
 			String miNum = request.getParameter("miNum");
+			System.out.println(miNum);
+
 			Map<String, String> movieInfo = miRepo.selectMovieInfo(miNum);
-			request.setAttribute("userInfo", movieInfo);
+			request.setAttribute("movieInfo", movieInfo);
 		} else if ("insert".equals(uri)) {
 			path += "movie-info/insert.jsp";
 		} else if ("update".equals(uri)) {
 			path += "movie-info/update.jsp";
+			String miNum = request.getParameter("miNum");
+			Map<String, String> movieInfo = miRepo.selectMovieInfo(miNum);
+			request.setAttribute("movieInfo", movieInfo);
 		} else if ("delete".equals(uri)) {
 			path += "movie-info/delete.jsp";
 		}
@@ -48,6 +53,7 @@ public class MovieInfoServlet extends HttpServlet {
 		String uri = request.getRequestURI();
 		int idx = uri.lastIndexOf("/")+1;
 		uri = uri.substring(idx);
+		String path = "/WEB-INF/views/common/msg.jsp";
 		if("insert".equals(uri)) {
 			Map<String,String> param = new HashMap<>();
 			param.put("miTitle", request.getParameter("miTitle"));
@@ -62,9 +68,31 @@ public class MovieInfoServlet extends HttpServlet {
 				request.setAttribute("msg", "영화 등록에 성공했습니다.");
 				request.setAttribute("url", "/movie-info/list");
 			}
-			
+		} else if("update".equals(uri)) {
+			Map<String,String> param = new HashMap<>();
+			param.put("miTitle", request.getParameter("miTitle"));
+			param.put("miDesc", request.getParameter("miDesc"));
+			param.put("miGenre", request.getParameter("miGenre"));
+			param.put("miCredat", request.getParameter("miCredat"));
+			param.put("miCnt", request.getParameter("miCnt"));
+			int result = miRepo.updateMovieInfo(param);
+			request.setAttribute("msg", "영화 수정에 실패했습니다.");
+			request.setAttribute("url", "/movie-info/update?miNum=" + request.getParameter("miNum"));
+			if(result==1) {
+				request.setAttribute("msg", "영화 수정에 성공했습니다.");
+				request.setAttribute("url", "/movie-info/list");
+			}
+		} else if("delete".equals(uri)) {
+			String miNum = request.getParameter("miNum");
+			int result = miRepo.deleteMovieInfo(miNum);
+			request.setAttribute("msg", "영화 삭제를 실패했습니다.");
+			request.setAttribute("url", "/movie-info/views?miNum=" + request.getParameter("miNum"));
+			if(result == 1) {
+				request.setAttribute("msg", "영화 삭제에 성공했습니다.");
+				request.setAttribute("url", "/user-info/list");
+			}
 		}
-		RequestDispatcher rd = request.getRequestDispatcher(uri);
+		RequestDispatcher rd = request.getRequestDispatcher(path);
 		rd.forward(request, response);
 	}
 }
