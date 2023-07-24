@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.repository.ClassInfoRepository;
 
-public class ClassInfoservlet extends HttpServlet {
+public class ClassInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ClassInfoRepository ciRepo = new ClassInfoRepository();
        
