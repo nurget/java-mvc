@@ -20,6 +20,7 @@ public class LottoServlet extends HttpServlet {
 		Random r = new Random();
 		while(lotto.size()<6) {
 			String rNum = r.nextInt(45) + 1 + "";
+//			 얜 반대로 없으면 true
 			if(!lotto.contains(rNum)) { // contains 메서드는 해당 요소가 리스트에 있으면 true, 없으면 flase
 				lotto.add(rNum);
 			}

@@ -10,26 +10,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mvc.common.DBCon;
+
 public class UserInfoRepository {
 
 	public List<Map<String,String>> selectuserInfoList() {
-		String driverName = "org.mariadb.jdbc.Driver";
-		String url = "jdbc:mariadb://localhost:3306/kd";
-		String user = "root";
-		String pwd = "kd1824java";
-		try {
-			Class.forName(driverName);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		List<Map<String,String>> userInfoList = new ArrayList<>();
 		
 		try {
-			Connection con = DriverManager.getConnection(url, user, pwd);
+			Connection con =  DBCon.getCon();
 
 			String sql = "SELECT * FROM USER_INFO WHERE 1=1";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
+			ResultSet  rs = ps.executeQuery();
 			while(rs.next()) {
 				Map<String,String> userInfo = new HashMap<>();
 				userInfo.put("uiNum", rs.getString("UI_NUM"));
@@ -45,23 +38,14 @@ public class UserInfoRepository {
 		
 	}
 
-	public Map<String,String> selectuserInfo(String uiNum) {
-		String driverName = "org.mariadb.jdbc.Driver";
-		String url = "jdbc:mariadb://localhost:3306/kd";
-		String user = "root";
-		String pwd = "kd1824java";
-		try {
-			Class.forName(driverName);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+	public Map<String,String> selectUserInfo(String uiNum) {
 		
 		try {
-			Connection con = DriverManager.getConnection(url, user, pwd);
+			Connection con = DBCon.getCon();
 
 			String sql = "SELECT * FROM USER_INFO WHERE 1=1 AND UI_NUM=?";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, uiNum);
+			ps.setString(1,uiNum);
 			ResultSet  rs = ps.executeQuery();
 			while(rs.next()) {
 				Map<String,String> userInfo = new HashMap<>();
@@ -76,4 +60,48 @@ public class UserInfoRepository {
 		}
 		return null;
 	}
+	
+	public int insertUserInfo(Map<String,String> userInfo) {
+		String sql = "INSERT INTO USER_INFO(UI_ID, UI_PWD, UI_NAME)";
+		sql += " VALUES(?,?,?)";
+		Connection con = DBCon.getCon();
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, userInfo.get("uiId"));
+			ps.setString(2, userInfo.get("uiPwd"));
+			ps.setString(3, userInfo.get("uiName"));
+			return ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int updateUserInfo(Map<String,String> userInfo) {
+		String sql = "UPDATE USER_INFO";
+		sql += " SET UI_ID=?,";
+		sql += " UI_PWD=?,";
+		sql += " UI_NAME=?";
+		sql += " WHERE UI_NUM=?";
+		Connection con = DBCon.getCon();
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, userInfo.get("uiId"));
+			ps.setString(2, userInfo.get("uiPwd"));
+			ps.setString(3, userInfo.get("uiName"));
+			ps.setString(4, userInfo.get("uiNum"));
+			return ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }
+
+
+
+
+
+
+
+
