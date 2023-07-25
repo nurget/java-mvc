@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mvc.common.CommonView;
 import com.mvc.repository.UserInfoRepository;
 
 public class UserInfoServlet extends HttpServlet {
@@ -17,37 +17,29 @@ public class UserInfoServlet extends HttpServlet {
 	private UserInfoRepository uiRepo = new UserInfoRepository();
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String uri = request.getRequestURI();
-		int idx = uri.lastIndexOf("/")+1;
-		uri = uri.substring(idx);
-		String path = "/WEB-INF/views/";
+		String uri = CommonView.getCmd(request);
+		
 		if("list".equals(uri)) {
-			path += "user-info/list.jsp";
 			request.setAttribute("userInfoList", uiRepo.selectuserInfoList());
 		}else if("view".equals(uri)) {
-			path += "user-info/view.jsp";
 			String uiNum = request.getParameter("uiNum");
 			Map<String,String> userInfo = uiRepo.selectUserInfo(uiNum);
 			request.setAttribute("userInfo", userInfo);
-		}else if("insert".equals(uri)) {
-			path += "user-info/insert.jsp";
 		}else if("update".equals(uri)) {
-			path += "user-info/update.jsp";
 			String uiNum = request.getParameter("uiNum");
 			Map<String,String> userInfo = uiRepo.selectUserInfo(uiNum);
 			request.setAttribute("userInfo", userInfo);
-		}else if("delete".equals(uri)) {
-			path += "user-info/delete.jsp";
 		}
-		RequestDispatcher rd = request.getRequestDispatcher(path);
-		rd.forward(request, response);
+		
+		CommonView.forward(request, response);
 	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String uri = request.getRequestURI();
-		int idx = uri.lastIndexOf("/")+1;
-		uri = uri.substring(idx);
-		String path = "/WEB-INF/views/common/msg.jsp";
+		String uri = CommonView.getCmd(request);
+//		int idx = uri.lastIndexOf("/")+1;
+//		uri = uri.substring(idx);
+//		String path = "/WEB-INF/views/common/msg.jsp";
 		if("insert".equals(uri)) {
 			Map<String,String> param = new HashMap<>();
 			param.put("uiId", request.getParameter("uiId"));
@@ -83,8 +75,7 @@ public class UserInfoServlet extends HttpServlet {
 				request.setAttribute("url", "/user-info/list");
 			}
 		}
-		RequestDispatcher rd = request.getRequestDispatcher(path);
-		rd.forward(request, response);
+		CommonView.goMessagePage(request, response);
 	}
 
 }
